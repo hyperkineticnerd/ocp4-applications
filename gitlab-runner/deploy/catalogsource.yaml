@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: gitlab-runner-catalog-source
+  namespace: openshift-marketplace
+spec:
+  displayName: gitlab-runner-operator-bundle
+  image: registry.gitlab.com/gitlab-org/gl-openshift/gitlab-runner-operator/gitlab-runner-operator-catalog-source:v13.9.0
+  publisher: GitLab 
+  sourceType: grpc
