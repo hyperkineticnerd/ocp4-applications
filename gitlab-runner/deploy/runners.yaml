@@ -1,0 +1,11 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  name: gitlab-runner
+spec:
+  gitlabUrl: https://gitlab.developer.hkn.lab/
+  buildImage: alpine
+  token: gitlab-runner-secret
+  tags: openshift
+  ca: gitlab-ca-cert
+

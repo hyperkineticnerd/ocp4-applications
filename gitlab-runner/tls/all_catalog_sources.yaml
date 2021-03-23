@@ -1,0 +1,74 @@
+apiVersion: v1
+items:
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: CatalogSource
+  metadata:
+    name: certified-operators
+    namespace: openshift-marketplace
+  spec:
+    displayName: Certified Operators
+    icon:
+      base64data: ""
+      mediatype: ""
+    image: registry.redhat.io/redhat/certified-operator-index:latest
+    priority: -200
+    publisher: Red Hat
+    sourceType: grpc
+    updateStrategy:
+      registryPoll:
+        interval: 10m0s
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: CatalogSource
+  metadata:
+    name: community-operators
+    namespace: openshift-marketplace
+  spec:
+    displayName: Community Operators
+    icon:
+      base64data: ""
+      mediatype: ""
+    image: registry.redhat.io/redhat/community-operator-index:latest
+    priority: -400
+    publisher: Red Hat
+    sourceType: grpc
+    updateStrategy:
+      registryPoll:
+        interval: 10m0s
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: CatalogSource
+  metadata:
+    name: redhat-marketplace
+    namespace: openshift-marketplace
+  spec:
+    displayName: Red Hat Marketplace
+    icon:
+      base64data: ""
+      mediatype: ""
+    image: registry.redhat.io/redhat/redhat-marketplace-index:latest
+    priority: -300
+    publisher: Red Hat
+    sourceType: grpc
+    updateStrategy:
+      registryPoll:
+        interval: 10m0s
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: CatalogSource
+  metadata:
+    name: redhat-operators
+    namespace: openshift-marketplace
+  spec:
+    displayName: Red Hat Operators
+    icon:
+      base64data: ""
+      mediatype: ""
+    image: registry.redhat.io/redhat/redhat-operator-index:latest
+    priority: -100
+    publisher: Red Hat
+    sourceType: grpc
+    updateStrategy:
+      registryPoll:
+        interval: 10m0s
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
