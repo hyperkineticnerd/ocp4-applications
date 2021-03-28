@@ -1,0 +1,8 @@
+[[runners]]
+  executor = "kubernetes"
+  [runners.kubernetes]
+    [[runners.kubernetes.volumes.config_map]]
+      name = "gitlab-ca-certs"
+      mount_path = "/home/gitlab-runner/.gitlab-runner/certs"
+      [runners.kubernetes.volumes.config_map.items]
+        "hostname.crt" = "gitlab.developer.hkn.lab.crt"

@@ -1,0 +1,74 @@
+= Jetstack Cert-Manager on Openshift 4.7
+
+== Introduction
+
+Instatlling and Configuring Cert-Manager with a CA key pair on OpenShift 4.7
+
+== Prerequisites
+
+* CA cert and private key pair for Cert-Manager Issuing
+
+== Installation
+
+=== Create Project for Cert-Manager
+
+[source,bash]
+-----
+oc new-project cert-manager
+-----
+
+=== Install Cert-Manager
+
+==== via Manifests
+
+[source,bash]
+-----
+oc apply -f https://github.com/jetstack/cert-manager/releases/download/v1.2.0/cert-manager.yaml
+-----
+
+// ==== via Operator
+
+// Install via Operator Hub. Create ClusterIssuer CR manifest.
+
+=== Create Issuer
+
+==== CA Issuer
+
+[source,yaml]
+-----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ca-key-pair
+  namespace: sandbox
+data:
+  tls.crt: ZZZZZZZ
+  tls.key: ZZZZZZZ
+-----
+
+[source,yaml]
+-----
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: ca-issuer
+spec:
+  ca:
+    secretName: ca-key-pair
+-----
+
+=== Create Certificate
+
+[source,yaml]
+-----
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: my-certificate
+  namespace: my-namespace
+spec:
+  secretName: my-certificate-secret
+  issuerRef:
+    name: ca-issuer
+    kind: Issuer
+-----

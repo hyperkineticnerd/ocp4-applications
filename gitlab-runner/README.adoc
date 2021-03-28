@@ -27,7 +27,7 @@ isn't needed. The Operator will be installable via the OpenShift Web Console.  F
 we need to manually install the operator via the following ClusterServiceVerison.
 
 The following ClusterServiceVersion tells the Operator Lifecycle Manager about the GitLab Runner
-Operator. Apply CSV via `oc apply -f ClusterServiceVersion.yaml`
+Operator.
 
 .OperatorGroup.yaml
 [source,yaml]
@@ -445,9 +445,11 @@ spec:
   startingCSV: gitlab-runner-operator.v13.8.0
 -----
 
+Apply ClusterServiceVersion via `oc apply -f ClusterServiceVersion.yaml`
+
 === Set up GitLab Runners
 
-For GitLab Runners to register themselves with your self-hosted instance of GitLab, you will need to obtain the runner registration token from `Admin -> Overview -> Runners` (for Shared Runners). Apply via `oc apply -f gitlab-runner-secret.yaml`
+For GitLab Runners to register themselves with your self-hosted instance of GitLab, you will need to obtain the runner registration token from `Admin -> Overview -> Runners` (for Shared Runners).
 
 .gitlab-runner-secret.yaml
 [source,yaml]
@@ -462,6 +464,7 @@ stringData:
 -----
 <1> The registration token from gitlab instance.
 
+Apply via `oc apply -f gitlab-runner-secret.yaml`
 
 If your GitLab instance is using TLS/HTTPS then you should download the Issuing CA Certificate and add it to OpenShift as a Secret. Download the CA Cert and create a secret with the following.
 
@@ -470,8 +473,7 @@ If your GitLab instance is using TLS/HTTPS then you should download the Issuing 
 oc create secret generic gitlab-ca-cert --from-file=tls.crt=ipa.ca.cert
 -----
 
-The `Runner.yaml` is used to setup GitLab Runner instances in your OpenShift cluster. Apply via `oc apply -f Runner.yaml`
-
+The `Runner.yaml` is used to setup GitLab Runner instances in your OpenShift cluster.
 
 .Runner.yaml
 [source,yaml]
@@ -492,3 +494,7 @@ spec:
 <3> OpenShift Secret with your gitlab runner registration token.
 <4> Tags for use in CI Pipelines.
 <5> OpenShift Secret with the CA TLS Certificate.
+
+Apply via `oc apply -f Runner.yaml`
+
+In Gitlab (under Admin -> Overview -> Runners), the new gitlab-runner should show up in a few minutes.
