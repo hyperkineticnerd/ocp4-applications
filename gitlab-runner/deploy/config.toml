@@ -1,8 +1,64 @@
+# listen_address = "[::]:9252"
+# concurrent = 10
+# check_interval = 30
+# log_level = "info"
+
+# [session_server]
+
 [[runners]]
+  # tls-ca-file = "/home/gitlab-runner/.gitlab-runner/certs/hostname.crt"
+  # url = "https://gitlab.developer.hkn.lab/"
   executor = "kubernetes"
+  # [runners.custom_build_dir]
+  # [runners.cache]
+  #   [runners.cache.s3]
+  #   [runners.cache.gcs]
+  #   [runners.cache.azure]
   [runners.kubernetes]
-    [[runners.kubernetes.volumes.config_map]]
-      name = "gitlab-ca-certs"
-      mount_path = "/home/gitlab-runner/.gitlab-runner/certs"
-      [runners.kubernetes.volumes.config_map.items]
-        "hostname.crt" = "gitlab.developer.hkn.lab.crt"
+    # image = "alpine/git:latest"
+    # namespace = "gitlab-runner"
+    # allow_privilege_escalation = true
+    # privileged = true
+    # cap_add = ["SETUID", "SETGID"]
+    # helper_image = "registry.gitlab.com/gitlab-org/ci-cd/gitlab-runner-ubi-images/gitlab-runner-helper-ocp:x86_64-v13.11.0"
+    # [runners.kubernetes.pod_security_context]
+    #   run_as_non_root = true
+    #   run_as_user = 1001
+    #   run_as_group = 1001
+    #   fs_group = 1001
+    [runners.kubernetes.volumes]
+      # [[runners.kubernetes.volumes.config_map]]
+      #   name = "gitlab-ca-certs"
+      #   mount_path = "/home/gitlab-runner/.gitlab-runner/certs"
+      #   [runners.kubernetes.volumes.config_map.items]
+      #     "hostname.crt" = "gitlab.developer.hkn.lab.crt"
+      # [[runners.kubernetes.volumes.empty_dir]]
+      #   name = "varlibcontainers"
+      #   mount_path = "/var/lib/containers"
+      #   medium = "Memory"
+      # [[runners.kubernetes.volumes.empty_dir]]
+      #   name = "vartmp"
+      #   mount_path = "/var/tmp"
+      #   medium = "Memory"
+      [[runners.kubernetes.volumes.csi]]
+        name = "varlibcontainers"
+        mount_path = "/var/lib/containers"
+        # driver = ""
+        [runners.kubernetes.volumes.csi.volume_attributes]
+          size = "5Gi"
+    # [runners.kubernetes.dns_config]
+    #   nameservers = [
+    #     "172.16.3.5",
+    #     "172.16.3.4",
+    #     "172.16.3.3",
+    #     "1.1.1.1",
+    #   ]
+    #   searches = [
+    #     "hkn.lab",
+    #   ]
+    #   [[runners.kubernetes.dns_config.options]]
+    #     name = "ndots"
+    #     value = "2"
+
+    #   [[runners.kubernetes.dns_config.options]]
+    #     name = "edns0"
