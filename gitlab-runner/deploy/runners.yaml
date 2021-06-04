@@ -4,8 +4,9 @@ metadata:
   name: gitlab-runner
 spec:
   gitlabUrl: https://gitlab.developer.hkn.lab/
-  buildImage: alpine
+  buildImage: ubuntu:20.04
   token: gitlab-runner-secret
   tags: openshift
   ca: gitlab-ca-cert
-
+  config: gitlab-runner-config-toml
+  # helperImage: gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper-ubi:latest

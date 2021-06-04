@@ -1,14 +1,13 @@
-apiVersion: v1
 kind: ConfigMap
+apiVersion: v1
 metadata:
   name: gitlab-runner-config-toml
+  namespace: gitlab-runner
 data:
   config.toml: |
     [[runners]]
-      executor = "kubernetes"
       [runners.kubernetes]
-        [[runners.kubernetes.volumes.secret]]
-          name = "gitlab-ca-certs"
-          mount_path = "/home/gitlab-runner/.gitlab-runner/certs"
-          [runners.kubernetes.volumes.secret.items]
-            "hostname.crt" = "gitlab.developer.hkn.lab.crt"
+        [[runners.kubernetes.volumes.pvc]]
+          name = "varlibcontainers"
+          mount_path = "/var/lib/containers"
+
