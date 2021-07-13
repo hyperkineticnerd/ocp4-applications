@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-openshift
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-openshift
+  template:
+    metadata:
+      labels:
+        app: demo-openshift
+    spec:
+      containers:
+      - name: demo-openshift
+        image: ubi8/ubi:4.3
+        ports:
+        - containerPort: 80
